@@ -35,5 +35,7 @@ public class HomePage extends BasePage{
     public void loginUrl(){
         getLogin().click();
     }
-
+    public void clickSignUp(){
+        getSignUp().click();
+    }
 }

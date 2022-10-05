@@ -61,7 +61,7 @@ public class LoginTest extends BaseTest{
     }
 
     @Test (priority = 5)
-    public void validCredentissals() throws InterruptedException {
+    public void validCredentials() throws InterruptedException {
         homePage.loginUrl();
         loginPage.inputFill("admin@admin.com", "12345");
         Thread.sleep(5000);
