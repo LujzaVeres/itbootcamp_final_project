@@ -48,9 +48,9 @@ public class SignUpTest extends BaseTest{
     @Test (priority = 4)
     public void newInput() throws InterruptedException {
         homePage.clickSignUp();
-        signUpPage.inputFill("Lujza Veres", "lujzav.lv@itbootcamp.rs", "12346", "12346");
+        signUpPage.inputFill("Lujza Veres", signUpPage.getFaker().internet().emailAddress(), "12346", "12346");
         Thread.sleep(5000);
         WebElement actualResult = driver.findElement(By.xpath("//*[@id='app']/div[4]/div/div/div[1]"));
         Assert.assertEquals(actualResult.getText(), "IMPORTANT: Verify your account");
     }
-}
+}//etWebDriverWait().until(ExpectedConditions.textToBe(By.xpath("//*[@id=\"app\"]/div[4]/div/div/div[1]"), "IMPORTANT: Verify your account"));

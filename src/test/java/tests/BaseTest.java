@@ -11,9 +11,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.HomePage;
-import pages.LoginPage;
-import pages.SignUpPage;
+import pages.*;
 
 import java.time.Duration;
 
@@ -23,6 +21,8 @@ public class BaseTest {
     protected HomePage homePage;
     protected LoginPage loginPage;
     protected SignUpPage signUpPage;
+    protected AdminCitiesPage adminCitiesPage;
+    protected LocalePage localePage;
 
     @BeforeClass
     public void beforeClass(){
@@ -33,6 +33,8 @@ public class BaseTest {
         homePage = new HomePage(driver,driverWait);
         loginPage = new LoginPage(driver,driverWait);
         signUpPage = new SignUpPage(driver,driverWait);
+        adminCitiesPage = new AdminCitiesPage(driver,driverWait);
+        localePage = new LocalePage(driver,driverWait);
     }
 
     @BeforeMethod

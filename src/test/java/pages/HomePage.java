@@ -39,3 +39,4 @@ public class HomePage extends BasePage{
         getSignUp().click();
     }
 }
+
