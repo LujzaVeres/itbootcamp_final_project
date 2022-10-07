@@ -44,10 +44,6 @@ public class LoginTest extends BaseTest{
         Assert.assertEquals(actualResult.getText(), "User does not exists");
         login();
         driverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-//        login();
-//        driverWait = new WebDriverWait(driver, Duration.ofSeconds(3));
-//        String actualRes = driver.getCurrentUrl();
-//        Assert.assertTrue(actualRes.contains("login"));
     }
 
     @Test (priority = 4)

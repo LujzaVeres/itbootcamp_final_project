@@ -2,11 +2,12 @@ package pages;
 
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class AdminCitiesPage extends BasePage{
+public class AdminCitiesPage extends BasePage {
     protected By adminBtn = By.xpath("//*[@id='app']/div[1]/div/header/div/div[3]/button[1]/span");
     protected By cities = By.xpath("//*[@id='app']/div[3]/div[1]/a[1]");
     protected By newItem = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[1]/div[3]/form/div[1]/button/span/i");
@@ -15,8 +16,14 @@ public class AdminCitiesPage extends BasePage{
     protected By editBtn = By.xpath("//*[@id='edit']/span/i");
     protected By editItem = By.xpath("//*[@id='name']");
     protected By saveEditItem = By.xpath("//*[@id='app']/div[5]/div/div/div[3]/button[2]/span");
+    protected By searchBox = By.xpath("//*[@id='search']");
+    protected By searchBtn = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[1]/div[2]/div/div/div/div[3]/div/i");
     protected Faker faker = new Faker();
-    private String city;
+    private String city = faker.address().city();
+    private String editedCity = city + " - edited";
+
+    protected By deleteBtn = By.id("delete");
+    protected By finalDelete = By.xpath("//*[@id='app']/div[5]/div/div/div[2]/button[2]");
 
     public AdminCitiesPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -54,45 +61,71 @@ public class AdminCitiesPage extends BasePage{
         return getDriver().findElement(saveEditItem);
     }
 
-    public Faker getFaker() {
-        return faker;
+    public WebElement getSearchBox() {
+        return getDriver().findElement(searchBox);
     }
 
-    public String getCity() {
-        return city;
+    public WebElement getSearchBtn() {
+        return getDriver().findElement(searchBtn);
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void clickAdminBtn(){
+    public void clickAdminBtn() {
         getAdminBtn().click();
     }
 
-    public void clickCitiesBtn(){
+    public void clickCitiesBtn() {
         getCities().click();
     }
 
-    public void createCity() throws InterruptedException {
+    public String fakeCity(){
+        return city;
+    }
+
+    public String getEditedCity() {
+        return editedCity;
+    }
+
+    public WebElement getDeleteBtn() {
+        return getDriver().findElement(deleteBtn);
+    }
+
+    public WebElement getFinalDelete() {
+        return getDriver().findElement(finalDelete);
+    }
+
+    public void createCity(String name) throws InterruptedException {
         getNewItem().click();
-        Thread.sleep(3000);
         getNameCity().click();
-        city = getFaker().address().city();
-        getNameCity().sendKeys(city);
+        getNameCity().sendKeys(name);
         getSaveBtn().click();
 
     }
-    public void editCity(){
+    public void editCity() throws InterruptedException {
         getEditBtn().click();
         getEditItem().click();
-        getEditItem().clear();
-        getEditItem().sendKeys(city + "- edited");
+        getEditItem().sendKeys(editedCity);
         getSaveEditItem().click();
     }
 
-    public void searchCity(){
+    public void searchCity() throws InterruptedException {
+        getSearchBox().click();
+        getSearchBox().sendKeys(editedCity);
+        getSearchBtn().click();
+    }
 
+    public WebElement getFirstCityText() {
+        return getDriver().findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr[1]/td[2]"));
+    }
+
+    public WebElement getSearchedText() {
+        return getDriver().findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]"));
+    }
+
+    public void deleteCity(){
+        getDeleteBtn().click();
+    }
+    public void finalDelete(){
+        getFinalDelete().click();
     }
 }
 
