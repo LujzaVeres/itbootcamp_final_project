@@ -53,7 +53,7 @@ public class LoginTest extends BaseTest{
     public void validCredentials() {
         homePage.loginUrl();
         loginPage.inputFill("admin@admin.com", "12345");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.urlToBe("https://vue-demo.daniel-avellaneda.com/home"));
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains("/home"));
