@@ -11,7 +11,6 @@ public class HomePage extends BasePage{
     protected By login =  By.xpath("//*[@id='app']/div/div/header/div/div[3]/a[3]/span");
     protected By signUp =  By.xpath("//*[@id='app']/div/div/header/div/div[3]/a[4]/span");
 
-
     public HomePage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
@@ -32,9 +31,10 @@ public class HomePage extends BasePage{
         return getDriver().findElement(signUp);
     }
 
-    public void loginUrl(){
+    public void loginUrl() {
         getLogin().click();
     }
+
     public void clickSignUp(){
         getSignUp().click();
     }

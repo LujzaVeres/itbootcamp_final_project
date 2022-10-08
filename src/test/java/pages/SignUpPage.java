@@ -13,6 +13,7 @@ public class SignUpPage extends BasePage{
     protected By name = By.id("name");
     protected By signMeUp = By.xpath("//*[@id='app']/div/main/div/div[2]/div/div/div[2]/span/form/div/div[5]/button/span");
     Faker faker = new Faker();
+
     public SignUpPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
@@ -48,5 +49,4 @@ public class SignUpPage extends BasePage{
         getConfirmPassword().sendKeys(confirmPassword);
         getSignMeUp().click();
     }
-
 }

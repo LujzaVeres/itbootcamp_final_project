@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class ProfileTest extends BaseTest {
 
     @Test
-    public void changeProfile() throws InterruptedException {
+    public void changeProfile() {
         homePage.loginUrl();
         loginPage.inputFill("admin@admin.com", "12345");
         profilePage.clickProfileBtn();
@@ -27,6 +27,5 @@ public class ProfileTest extends BaseTest {
         Assert.assertTrue(actualTwitter.contains(profilePage.getTwitterField().getText()));
         String actualGitHub = profilePage.getGitHubField().getAttribute("value");
         Assert.assertTrue(actualGitHub.contains(profilePage.getGitHubField().getText()));
-
     }
 }

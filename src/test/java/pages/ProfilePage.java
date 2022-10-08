@@ -64,12 +64,12 @@ public class ProfilePage extends BasePage{
     public WebElement getSaveBtn() {
         return getDriver().findElement(saveBtn);
     }
+
     public void clickProfileBtn(){
         getProfileBtn().click();
     }
 
-    public void fillCredentials() throws InterruptedException {
-
+    public void fillCredentials() {
         Faker faker = new Faker();
         String name = faker.name().fullName();
         String phone = faker.number().digits(10);

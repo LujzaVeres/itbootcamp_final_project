@@ -11,8 +11,6 @@ public class LocalePage extends BasePage{
     protected By enLanguage = By.xpath("//*[@id='list-item-73']");
     protected By frLanguage = By.xpath("//*[@id='list-item-77']");
 
-
-    //list-item-75
     public LocalePage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
@@ -33,16 +31,18 @@ public class LocalePage extends BasePage{
         return getDriver().findElement(frLanguage);
     }
 
-    public void changeLanguage() throws InterruptedException {
+    public void changeLanguage() {
         getLanguage().click();
     }
 
     public void languageEs(){
         getEsLanguage().click();
     }
+
     public void languageEn(){
         getEnLanguage().click();
     }
+
     public void languageFr(){
         getFrLanguage().click();
     }

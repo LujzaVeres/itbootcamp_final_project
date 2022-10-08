@@ -21,7 +21,6 @@ public class AdminCitiesPage extends BasePage {
     protected Faker faker = new Faker();
     private String city = faker.address().city();
     private String editedCity = city + " - edited";
-
     protected By deleteBtn = By.id("delete");
     protected By finalDelete = By.xpath("//*[@id='app']/div[5]/div/div/div[2]/button[2]");
 
@@ -93,15 +92,15 @@ public class AdminCitiesPage extends BasePage {
         return getDriver().findElement(finalDelete);
     }
 
-    public void createCity(String name) throws InterruptedException {
+    public void createCity(String name) {
         getNewItem().click();
         getNameCity().click();
         getNameCity().sendKeys(Keys.COMMAND + "A", Keys.DELETE);
         getNameCity().sendKeys(name);
         getSaveBtn().click();
-
     }
-    public void editCity() throws InterruptedException {
+
+    public void editCity() {
         getEditBtn().click();
         getEditItem().click();
         getNameCity().sendKeys(Keys.COMMAND + "A", Keys.DELETE);
@@ -109,7 +108,7 @@ public class AdminCitiesPage extends BasePage {
         getSaveEditItem().click();
     }
 
-    public void searchCity() throws InterruptedException {
+    public void searchCity() {
         getSearchBox().click();
         getSearchBox().sendKeys(editedCity);
         getSearchBtn().click();
@@ -126,6 +125,7 @@ public class AdminCitiesPage extends BasePage {
     public void deleteCity(){
         getDeleteBtn().click();
     }
+
     public void finalDelete(){
         getFinalDelete().click();
     }

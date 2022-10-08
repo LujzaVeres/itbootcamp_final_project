@@ -6,15 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
 public class LoginPage extends BasePage {
     protected By email = By.id("email");
     protected By password = By.id("password");
     protected By loginBtn = By.xpath("//*[@id='app']/div/main/div/div[2]/div/div/div[3]/span/form/div/div[3]/button/span");
-
     protected Faker faker = new Faker();
-
     protected By logoutBtn = By.xpath("//*[@id='app']/div[1]/div/header/div/div[3]/button[2]/span");
 
     public LoginPage(WebDriver driver, WebDriverWait driverWait) {
