@@ -16,16 +16,15 @@ public class AdminCitiesTest extends BaseTest {
         homePage.loginUrl();
         loginPage.inputFill("admin@admin.com", "12345");
         adminCitiesPage.clickAdminBtn();
-        Thread.sleep(2000);
+        driverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
         adminCitiesPage.clickCitiesBtn();
-        Thread.sleep(2000);
+        driverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains("/admin/cities"));
         String expectedResult = "LOGOUT";
         WebElement actualRes = driver.findElement(By.xpath("//*[@id='app']/div[1]/div/header/div/div[3]/button[2]/span"));
         Assert.assertEquals(actualRes.getText(), expectedResult);
         driverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        loginPage.getLogoutBtn().click();
     }
 
     @Test(priority = 2)
@@ -37,7 +36,6 @@ public class AdminCitiesTest extends BaseTest {
         adminCitiesPage.createCity(adminCitiesPage.fakeCity());
         WebElement actualResult = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"));
         Assert.assertTrue(actualResult.getText().contains("Saved successfully"));
-        loginPage.getLogoutBtn().click();
     }
 
     @Test(priority = 3)
@@ -47,11 +45,9 @@ public class AdminCitiesTest extends BaseTest {
         adminCitiesPage.clickAdminBtn();
         adminCitiesPage.clickCitiesBtn();
         adminCitiesPage.editCity();
-        Thread.sleep(2000);
+        driverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
         WebElement actualResult = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"));
         Assert.assertTrue(actualResult.getText().contains("Saved successfully"));
-        Thread.sleep(2000);
-        loginPage.getLogoutBtn().click();
     }
 
     @Test(priority = 4)
@@ -61,11 +57,10 @@ public class AdminCitiesTest extends BaseTest {
         adminCitiesPage.clickAdminBtn();
         adminCitiesPage.clickCitiesBtn();
         adminCitiesPage.searchCity();
-        Thread.sleep(2000);
+        driverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
         Assert.assertEquals(adminCitiesPage.getFirstCityText().getText(), adminCitiesPage.getSearchedText().getText());
         WebElement actualResult = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr[1]"));
         Assert.assertTrue(actualResult.getText().contains(adminCitiesPage.getEditedCity()));
-        loginPage.getLogoutBtn().click();
     }
 
     @Test(priority = 5)
@@ -74,21 +69,19 @@ public class AdminCitiesTest extends BaseTest {
         loginPage.inputFill("admin@admin.com", "12345");
         adminCitiesPage.clickAdminBtn();
         adminCitiesPage.clickCitiesBtn();
-        Thread.sleep(2000);
+        driverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
         adminCitiesPage.searchCity();
-        Thread.sleep(2000);
+        driverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
         WebElement firstRow = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[3]/div[2]"));
         driverWait.until(ExpectedConditions.visibilityOf(firstRow));
         WebElement actualResult = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]"));
         Assert.assertTrue(actualResult.getText().contains(adminCitiesPage.getEditedCity()));
         adminCitiesPage.deleteCity();
-        Thread.sleep(2000);
+        driverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
         adminCitiesPage.finalDelete();
-        Thread.sleep(2000);
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
         WebElement messageBox = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"));
         Assert.assertTrue(messageBox.getText().contains("Deleted successfully"));
     }
 }
-//wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"),
-//        "Saved successfully\nCLOSE"));
-//WebElement messageBox = driver.findElement (By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"));

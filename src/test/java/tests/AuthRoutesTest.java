@@ -25,7 +25,6 @@ public class AuthRoutesTest extends BaseTest{
         driver.get("https://vue-demo.daniel-avellaneda.com/admin/cities");
         String expected = "/login";
         String actual = driver.getCurrentUrl();
-        Thread.sleep(3000);
         Assert.assertTrue(actual.contains(expected));
     }
 

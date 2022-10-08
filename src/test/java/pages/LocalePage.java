@@ -35,7 +35,6 @@ public class LocalePage extends BasePage{
 
     public void changeLanguage() throws InterruptedException {
         getLanguage().click();
-        Thread.sleep(2000);
     }
 
     public void languageEs(){

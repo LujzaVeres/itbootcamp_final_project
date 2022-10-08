@@ -2,15 +2,16 @@ package tests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class SignUpTest extends BaseTest{
+public class SignUpTest extends BaseTest {
 
-    @Test (priority = 1)
+    @Test(priority = 1)
     public void signUpUrl() throws InterruptedException {
         homePage.clickSignUp();
         driverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -18,10 +19,9 @@ public class SignUpTest extends BaseTest{
         Assert.assertTrue(actualResult.contains("signup"));
     }
 
-    @Test (priority = 2)
+    @Test(priority = 2)
     public void input() throws InterruptedException {
         homePage.clickSignUp();
-        Thread.sleep(3000);
         driverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
         String actualEmail = signUpPage.getEmail().getAttribute("type");
         Assert.assertEquals(actualEmail, "email");
@@ -35,7 +35,8 @@ public class SignUpTest extends BaseTest{
         Assert.assertEquals(actualConfirmPassword, "password");
 
     }
-    @Test (priority = 3)
+
+    @Test(priority = 3)
     public void validInput() throws InterruptedException {
         homePage.clickSignUp();
         signUpPage.inputFill("Test Test", "admin@admin.com", "123654", "123654");
@@ -45,12 +46,13 @@ public class SignUpTest extends BaseTest{
         signUpUrl();
     }
 
-    @Test (priority = 4)
+    @Test(priority = 4)
     public void newInput() throws InterruptedException {
         homePage.clickSignUp();
         signUpPage.inputFill("Lujza Veres", signUpPage.getFaker().internet().emailAddress(), "12346", "12346");
-        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='app']/div[4]/div/div/div[1]")));
         WebElement actualResult = driver.findElement(By.xpath("//*[@id='app']/div[4]/div/div/div[1]"));
         Assert.assertEquals(actualResult.getText(), "IMPORTANT: Verify your account");
     }
-}//etWebDriverWait().until(ExpectedConditions.textToBe(By.xpath("//*[@id=\"app\"]/div[4]/div/div/div[1]"), "IMPORTANT: Verify your account"));
+}

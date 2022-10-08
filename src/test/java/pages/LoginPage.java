@@ -2,10 +2,8 @@ package pages;
 
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -54,8 +52,10 @@ public class LoginPage extends BasePage {
         if (!getEmail().equals("admin@admin.com")) {
             System.out.println("User does not exists");
         } else {
+
         }
     }
+
     public void invalidPassword() {
         inputFill("admin@admin.com", getFaker().internet().password());
         if (!getPassword().equals("12345")) {
@@ -63,6 +63,5 @@ public class LoginPage extends BasePage {
         } else {
         }
     }
-
 }
 

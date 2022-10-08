@@ -96,6 +96,7 @@ public class AdminCitiesPage extends BasePage {
     public void createCity(String name) throws InterruptedException {
         getNewItem().click();
         getNameCity().click();
+        getNameCity().sendKeys(Keys.COMMAND + "A", Keys.DELETE);
         getNameCity().sendKeys(name);
         getSaveBtn().click();
 
@@ -103,6 +104,7 @@ public class AdminCitiesPage extends BasePage {
     public void editCity() throws InterruptedException {
         getEditBtn().click();
         getEditItem().click();
+        getNameCity().sendKeys(Keys.COMMAND + "A", Keys.DELETE);
         getEditItem().sendKeys(editedCity);
         getSaveEditItem().click();
     }
