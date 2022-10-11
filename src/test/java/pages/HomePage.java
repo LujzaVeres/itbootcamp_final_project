@@ -6,21 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage extends BasePage{
-    protected By home =  By.xpath("//*[@id='app']/div/div/header/div/div[3]/a[1]/span");
-    protected By about =  By.xpath("//*[@id='app]/div/div/header/div/div[3]/a[2]/span");
     protected By login =  By.xpath("//*[@id='app']/div/div/header/div/div[3]/a[3]/span");
     protected By signUp =  By.xpath("//*[@id='app']/div/div/header/div/div[3]/a[4]/span");
 
-    public HomePage(WebDriver driver, WebDriverWait driverWait) {
-        super(driver, driverWait);
-    }
-
-    public WebElement getHome() {
-        return getDriver().findElement(home);
-    }
-
-    public WebElement getAbout() {
-        return getDriver().findElement(about);
+    public HomePage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
     }
 
     public WebElement getLogin() {
@@ -38,5 +28,13 @@ public class HomePage extends BasePage{
     public void clickSignUp(){
         getSignUp().click();
     }
+
+    public void ifLoggedInLogout(){
+        WebElement logoutBtn = getDriver().findElement(By.xpath("//*[@id='app']/div[1]/div/header/div/div[3]/button[2]/span"));
+        if (logoutBtn.isDisplayed()){
+            logoutBtn.click();
+        }
+    }
 }
+
 

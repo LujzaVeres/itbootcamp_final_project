@@ -1,11 +1,11 @@
 package pages;
 
-import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class AdminCitiesPage extends BasePage {
     protected By adminBtn = By.xpath("//*[@id='app']/div[1]/div/header/div/div[3]/button[1]/span");
@@ -18,14 +18,16 @@ public class AdminCitiesPage extends BasePage {
     protected By saveEditItem = By.xpath("//*[@id='app']/div[5]/div/div/div[3]/button[2]/span");
     protected By searchBox = By.xpath("//*[@id='search']");
     protected By searchBtn = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[1]/div[2]/div/div/div/div[3]/div/i");
-    protected Faker faker = new Faker();
-    private String city = faker.address().city();
-    private String editedCity = city + " - edited";
     protected By deleteBtn = By.id("delete");
     protected By finalDelete = By.xpath("//*[@id='app']/div[5]/div/div/div[2]/button[2]");
+    protected By actualRes = By.xpath("//*[@id='app']/div[1]/div/header/div/div[3]/button[2]/span");
+    protected By actualResult = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr[1]");
+    protected By firstRow = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[3]/div[2]");
+    protected By actualResultForDeletedCity = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr[1]");
+    protected By messageBox = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]");
 
-    public AdminCitiesPage(WebDriver driver, WebDriverWait driverWait) {
-        super(driver, driverWait);
+    public AdminCitiesPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
     }
 
     public WebElement getAdminBtn() {
@@ -68,20 +70,32 @@ public class AdminCitiesPage extends BasePage {
         return getDriver().findElement(searchBtn);
     }
 
+    public WebElement getActualRes() {
+        return getDriver().findElement(actualRes);
+    }
+
+    public WebElement getActualResult() {
+        return getDriver().findElement(actualResult);
+    }
+
+    public WebElement getFirstRow() {
+        return getDriver().findElement(firstRow);
+    }
+
+    public WebElement getActualResultForDeletedCity() {
+        return getDriver().findElement(actualResultForDeletedCity);
+    }
+
+    public WebElement getMessageBox() {
+        return getDriver().findElement(messageBox);
+    }
+
     public void clickAdminBtn() {
         getAdminBtn().click();
     }
 
     public void clickCitiesBtn() {
         getCities().click();
-    }
-
-    public String fakeCity(){
-        return city;
-    }
-
-    public String getEditedCity() {
-        return editedCity;
     }
 
     public WebElement getDeleteBtn() {
@@ -100,17 +114,17 @@ public class AdminCitiesPage extends BasePage {
         getSaveBtn().click();
     }
 
-    public void editCity() {
+    public void editCity(String name) {
         getEditBtn().click();
         getEditItem().click();
         getNameCity().sendKeys(Keys.COMMAND + "A", Keys.DELETE);
-        getEditItem().sendKeys(editedCity);
+        getEditItem().sendKeys(name);
         getSaveEditItem().click();
     }
 
-    public void searchCity() {
+    public void searchCity(String name) {
         getSearchBox().click();
-        getSearchBox().sendKeys(editedCity);
+        getSearchBox().sendKeys(name);
         getSearchBtn().click();
     }
 
@@ -129,5 +143,11 @@ public class AdminCitiesPage extends BasePage {
     public void finalDelete(){
         getFinalDelete().click();
     }
+
+    public void saveMsg(){
+        WebElement actualResult = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"));
+        Assert.assertTrue(actualResult.getText().contains("Saved successfully"));
+    }
 }
+
 

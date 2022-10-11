@@ -5,28 +5,28 @@ import org.testng.annotations.Test;
 
 public class AuthRoutesTest extends BaseTest{
 
-    @Test(priority = 1)
+    @Test
     public void forbidsHomeUrl(){
         driver.get("https://vue-demo.daniel-avellaneda.com/home");
         String actual = driver.getCurrentUrl();
         Assert.assertTrue(actual.contains("/login"));
     }
 
-    @Test(priority = 2)
+    @Test
     public void forbidsProfileUrl(){
         driver.get("https://vue-demo.daniel-avellaneda.com/profile");
         String actual = driver.getCurrentUrl();
         Assert.assertTrue(actual.contains("/login"));
     }
 
-    @Test(priority = 3)
+    @Test
     public void forbidsAdminCities() {
         driver.get("https://vue-demo.daniel-avellaneda.com/admin/cities");
         String actual = driver.getCurrentUrl();
         Assert.assertTrue(actual.contains("/login"));
     }
 
-    @Test(priority = 4)
+    @Test
     public void forbidsAdminUsers(){
         driver.get("https://vue-demo.daniel-avellaneda.com/admin/users");
         String actual = driver.getCurrentUrl();

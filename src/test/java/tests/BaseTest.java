@@ -11,27 +11,32 @@ import pages.*;
 import java.time.Duration;
 
 public class BaseTest {
+
     protected WebDriver driver;
-    protected WebDriverWait driverWait;
+
+    protected WebDriverWait wait;
     protected HomePage homePage;
     protected LoginPage loginPage;
     protected SignUpPage signUpPage;
     protected AdminCitiesPage adminCitiesPage;
     protected LocalePage localePage;
     protected ProfilePage profilePage;
+    protected FakerClass fakerClass;
 
     @BeforeClass
     public void beforeClass(){
         System.setProperty("webdriver.chrome.driver", "/Users/macbook/Downloads/chromedriver");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        homePage = new HomePage(driver,driverWait);
-        loginPage = new LoginPage(driver,driverWait);
-        signUpPage = new SignUpPage(driver,driverWait);
-        adminCitiesPage = new AdminCitiesPage(driver,driverWait);
-        localePage = new LocalePage(driver,driverWait);
-        profilePage = new ProfilePage(driver, driverWait);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        homePage = new HomePage(driver,wait);
+        loginPage = new LoginPage(driver,wait);
+        signUpPage = new SignUpPage(driver,wait);
+        adminCitiesPage = new AdminCitiesPage(driver,wait);
+        localePage = new LocalePage(driver,wait);
+        profilePage = new ProfilePage(driver, wait);
+        fakerClass = new FakerClass(driver,wait);
     }
 
     @BeforeMethod

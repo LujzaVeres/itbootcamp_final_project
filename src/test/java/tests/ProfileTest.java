@@ -1,7 +1,5 @@
 package tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -12,9 +10,8 @@ public class ProfileTest extends BaseTest {
         homePage.loginUrl();
         loginPage.inputFill("admin@admin.com", "12345");
         profilePage.clickProfileBtn();
-        profilePage.fillCredentials();
-        WebElement actualResult = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]"));
-        Assert.assertTrue(actualResult.getText().contains("Profile saved successfuly"));
+        profilePage.fillCredentials(fakerClass.getName(), fakerClass.getPhone(), fakerClass.getCountry(), fakerClass.getTwitter(), fakerClass.getGitHub());
+        Assert.assertTrue(profilePage.getActualResult().getText().contains("Profile saved successfuly"));
         String actualName = profilePage.getNameField().getAttribute("value");
         Assert.assertTrue(actualName.contains(profilePage.getNameField().getText()));
         String actualPhone = profilePage.getPhoneField().getAttribute("value");

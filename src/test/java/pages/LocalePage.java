@@ -10,9 +10,12 @@ public class LocalePage extends BasePage{
     protected By esLanguage = By.xpath("//*[@id='list-item-75']");
     protected By enLanguage = By.xpath("//*[@id='list-item-73']");
     protected By frLanguage = By.xpath("//*[@id='list-item-77']");
+    protected By actualResultEs = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[1]/h1");
+    protected By actualResultEn = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[1]/h1");
+    protected By actualResultFr = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div[1]/div[1]/h1");
 
-    public LocalePage(WebDriver driver, WebDriverWait driverWait) {
-        super(driver, driverWait);
+    public LocalePage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
     }
 
     public WebElement getLanguage() {
@@ -29,6 +32,18 @@ public class LocalePage extends BasePage{
 
     public WebElement getFrLanguage() {
         return getDriver().findElement(frLanguage);
+    }
+
+    public WebElement getActualResultEs() {
+        return getDriver().findElement(actualResultEs);
+    }
+
+    public WebElement getActualResultEn() {
+        return getDriver().findElement(actualResultEn);
+    }
+
+    public WebElement getActualResultFr() {
+        return getDriver().findElement(actualResultFr);
     }
 
     public void changeLanguage() {

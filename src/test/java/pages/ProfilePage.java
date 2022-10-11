@@ -1,13 +1,10 @@
 package pages;
 
-import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class ProfilePage extends BasePage{
     protected By profileBtn = By.xpath("//*[@id='app']/div[1]/div/header/div/div[3]/a[3]");
@@ -20,9 +17,10 @@ public class ProfilePage extends BasePage{
     protected By twitterField = By.id("urlTwitter");
     protected By gitHubField = By.id("urlGitHub");
     protected By saveBtn = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div/div[2]/span/form/div/div/div[8]/button");
+    protected By actualResult = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]");
 
-    public ProfilePage(WebDriver driver, WebDriverWait driverWait) {
-        super(driver, driverWait);
+    public ProfilePage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
     }
 
     public WebElement getProfileBtn() {
@@ -65,18 +63,15 @@ public class ProfilePage extends BasePage{
         return getDriver().findElement(saveBtn);
     }
 
+    public WebElement getActualResult() {
+        return getDriver().findElement(actualResult);
+    }
+
     public void clickProfileBtn(){
         getProfileBtn().click();
     }
 
-    public void fillCredentials() {
-        Faker faker = new Faker();
-        String name = faker.name().fullName();
-        String phone = faker.number().digits(10);
-        String country = faker.country().name();
-        String twitter = "https://" + faker.internet().domainName();
-        String gitHub = "https://" + faker.internet().domainName();
-
+    public void fillCredentials(String name, String phone, String country, String twitter, String gitHub) {
         getNameField().click();
         getNameField().sendKeys(Keys.COMMAND + "A", Keys.DELETE);
         getNameField().sendKeys(name);
@@ -85,7 +80,6 @@ public class ProfilePage extends BasePage{
         getPhoneField().sendKeys(phone);
         getxBtn().click();
         getCityField().click();
-        driverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
         getCity().click();
         getCountry().click();
         getCountry().sendKeys(Keys.COMMAND + "A", Keys.DELETE);

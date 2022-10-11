@@ -1,6 +1,5 @@
 package pages;
 
-import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,11 +9,12 @@ public class LoginPage extends BasePage {
     protected By email = By.id("email");
     protected By password = By.id("password");
     protected By loginBtn = By.xpath("//*[@id='app']/div/main/div/div[2]/div/div/div[3]/span/form/div/div[3]/button/span");
-    protected Faker faker = new Faker();
     protected By logoutBtn = By.xpath("//*[@id='app']/div[1]/div/header/div/div[3]/button[2]/span");
+    protected By actualResultInvalidUser = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]/ul/li");
+    protected By actualResultInvalidPass = By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]/ul/li");
 
-    public LoginPage(WebDriver driver, WebDriverWait driverWait) {
-        super(driver, driverWait);
+    public LoginPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
     }
 
     public WebElement getEmail() {
@@ -25,16 +25,20 @@ public class LoginPage extends BasePage {
         return getDriver().findElement(password);
     }
 
+    public WebElement getLogoutBtn() {
+        return getDriver().findElement(logoutBtn);
+    }
+
     public WebElement getLoginBtn() {
         return getDriver().findElement(loginBtn);
     }
 
-    public Faker getFaker() {
-        return faker;
+    public WebElement getActualResultInvalidUser() {
+        return getDriver().findElement(actualResultInvalidUser);
     }
 
-    public WebElement getLogoutBtn() {
-        return getDriver().findElement(logoutBtn);
+    public WebElement getActualResultInvalidPass() {
+        return getDriver().findElement(actualResultInvalidPass);
     }
 
     public void inputFill(String email, String password) {
@@ -43,21 +47,12 @@ public class LoginPage extends BasePage {
         getLoginBtn().click();
     }
 
-    public void invalidEmail() {
-        inputFill(getFaker().internet().emailAddress(), "12345");
-        if (!getEmail().equals("admin@admin.com")) {
-            System.out.println("User does not exists");
-        } else {
-
-        }
+    public void invalidEmail(String name, String password) {
+        inputFill(name, password);
     }
 
-    public void invalidPassword() {
-        inputFill("admin@admin.com", getFaker().internet().password());
-        if (!getPassword().equals("12345")) {
-            System.out.println("Wrong password");
-        } else {
-        }
+    public void invalidPassword(String name, String password) {
+        inputFill(name, password);
     }
 }
 

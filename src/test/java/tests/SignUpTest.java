@@ -1,58 +1,46 @@
 package tests;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-
 public class SignUpTest extends BaseTest {
 
-    @Test(priority = 1)
-    public void signUpUrl() throws InterruptedException {
+    @Test
+    public void signUpUrl() {
         homePage.clickSignUp();
-        driverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
         String actualResult = driver.getCurrentUrl();
         Assert.assertTrue(actualResult.contains("signup"));
     }
 
-    @Test(priority = 2)
-    public void input() throws InterruptedException {
+    @Test
+    public void input() {
         homePage.clickSignUp();
-        driverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
         String actualEmail = signUpPage.getEmail().getAttribute("type");
         Assert.assertEquals(actualEmail, "email");
 
-        driverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
         String actualPassword = signUpPage.getPassword().getAttribute("type");
         Assert.assertEquals(actualPassword, "password");
 
-        driverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
         String actualConfirmPassword = signUpPage.getConfirmPassword().getAttribute("type");
         Assert.assertEquals(actualConfirmPassword, "password");
-
     }
 
-    @Test(priority = 3)
-    public void validInput() throws InterruptedException {
+    @Test (dependsOnMethods = {"input"})
+    public void validInput(){
         homePage.clickSignUp();
         signUpPage.inputFill("Test Test", "admin@admin.com", "123654", "123654");
-        driverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        WebElement actualResult = driver.findElement(By.xpath("//*[@id='app']/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/ul/li"));
-        Assert.assertEquals(actualResult.getText(), "E-mail already exists");
+        Assert.assertEquals(signUpPage.getActualResultValidInput().getText(), "E-mail already exists");
         signUpUrl();
     }
 
-    @Test(priority = 4)
-    public void newInput() throws InterruptedException {
+    @Test(dependsOnMethods = {"input", "validInput"})
+    public void newInput() {
         homePage.clickSignUp();
-        signUpPage.inputFill("Lujza Veres", signUpPage.getFaker().internet().emailAddress(), "12346", "12346");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='app']/div[4]/div/div/div[1]")));
-        WebElement actualResult = driver.findElement(By.xpath("//*[@id='app']/div[4]/div/div/div[1]"));
-        Assert.assertEquals(actualResult.getText(), "IMPORTANT: Verify your account");
+        signUpPage.inputFill("Lujza Veres", fakerClass.getEmail(), "12346", "12346");
+        wait.until(ExpectedConditions.textToBe(By.xpath("//*[@id='app']/div[4]/div/div/div[1]"), "IMPORTANT: Verify your account"));
+        Assert.assertEquals(signUpPage.getActualResultNewInput().getText(), "IMPORTANT: Verify your account");
+        signUpPage.getMsgBox();
     }
 }
