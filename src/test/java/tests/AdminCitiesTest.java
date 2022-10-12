@@ -55,7 +55,7 @@ public class AdminCitiesTest extends BaseTest {
     }
 
     @Test (dependsOnMethods = {"createCity", "editCity", "searchCity"})
-    public void deleteCity() throws InterruptedException {
+    public void deleteCity() {
         homePage.loginUrl();
         loginPage.inputFill("admin@admin.com", "12345");
         adminCitiesPage.clickAdminBtn();
